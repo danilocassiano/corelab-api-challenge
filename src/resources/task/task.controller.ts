@@ -7,6 +7,8 @@ import {
   Patch,
   Delete,
   Query,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { Task } from '@prisma/client';
@@ -44,6 +46,19 @@ export class TaskController {
   ) {
     const pageNumber = parseInt(page, 10);
     const limitNumber = parseInt(limit, 10);
+
+    if (isNaN(pageNumber) || pageNumber < 1) {
+      throw new HttpException(
+        'O parâmetro "page" deve ser um número positivo.',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    if (isNaN(limitNumber) || limitNumber < 1) {
+      throw new HttpException(
+        'O parâmetro "limit" deve ser um número positivo.',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
 
     return await this.taskService.findAll(pageNumber, limitNumber);
   }
