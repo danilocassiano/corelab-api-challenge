@@ -37,7 +37,9 @@ export class UsersService {
 
   async findOne(id: number, deletaSenha: boolean = true): Promise<User> {
     const user = await this.prisma.user.findUnique({
-      where: { id },
+      where: {
+        id: id,
+      },
     });
 
     if (!user)

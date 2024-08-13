@@ -14,7 +14,6 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { Task } from '@prisma/client';
 import { TaskService } from './task.service';
 import { UpdateTaskDto } from './dto/update-task.dto';
-
 @Controller('task')
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
